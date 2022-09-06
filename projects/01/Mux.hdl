@@ -1,0 +1,40 @@
+// This file is part of www.nand2tetris.org
+
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Mux.hdl
+
+/** 
+ * Multiplexor:
+ * out = a if sel == 0
+ *       b otherwise
+ */
+
+CHIP Mux {
+    IN a, b, sel;
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    //This is very explicit and "beautiful" if you're a coked up mathematician
+  /*  And(a = a, b = b, out = andzazb);
+    And(a = b, b = sel, out = andzbzsel);
+    And(a = andzazb, b = sel, out = andzazbzc);
+    Not(in = sel, out = notzsel);
+    And(a = andzazb, b = notzsel, out = andzazbznotsel);
+    Not(in = b, out = notzb);
+    And(a = a, b = notzb, out = andzaznotb);
+    And(a = andzaznotb, b = notzsel, out = andzaznotbznotsel);
+    Not(in = a, out = notza);
+    And(a = notza, b = andzbzsel, out = andznotazbzsel);
+    Or(a = andzazbzc, b = andzazbznotsel, out = orzfirstz2);
+    Or(a = andzaznotbznotsel, b = andznotazbzsel, out = orzsecondz2);
+
+    Or(a = orzfirstz2, b = orzsecondz2, out = out);
+    */
+    //this is the sane way of doing things
+    And(a = sel, b = b, out = andSelB);
+    Not(in = sel, out = notSel);
+    And(a = notSel, b = a, out = andNotSelA);
+    Or(a = andSelB, b = andNotSelA, out = out);
+}
